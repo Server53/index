@@ -5,8 +5,7 @@ class MCServer(models.Model):
     server_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=256)
     description = models.TextField()
-    client_json_url = models.URLField()
-    client_json_size = models.BigIntegerField()
+    client_json_file_id = models.URLField()
     modded = models.BooleanField()
 
     class Meta:
@@ -19,8 +18,7 @@ class MCModPack(models.Model):
     name = models.CharField(max_length=256)
     description = models.TextField()
     required = models.BooleanField()
-    url = models.URLField()
-    size = models.BigIntegerField()
+    file_id = models.URLField()
 
     class Meta:
         db_table = "mc_modpack"
