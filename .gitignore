@@ -10,3 +10,6 @@ wheels/
 .venv
 
 *.sqlite3
+
+uploaded_files/
+.last_numeric_id

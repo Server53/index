@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import MCModPack, MCServer
+
+admin.site.register(MCServer)
+admin.site.register(MCModPack)

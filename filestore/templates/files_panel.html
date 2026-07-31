@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Files Panel</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <form id="uploadForm" action="upload/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="client_json_file" id="client_json_file_input" required>
+    <input type="submit" value="Upload">
+  </form>
+  
+  <div id="uploadLoading" class="hidden"></div>
+  <div id="uploadStatus"></div>
+
+  <script>
+    $('#uploadForm').on('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const statusDiv = $('#uploadStatus');
+      
+      startLoading();
+      $.ajax({
+        url: this.action,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        complete: ()=>{ stopLoading(); },
+        success: (data)=>{
+          statusDiv.html(`<p style="color: green;">✅ Upload successful! File ID: ${data.file_id}</p>`);
+        },
+        error: ()=>{
+          statusDiv.html(`<p style="color: red;">❌ Upload failed. Please try again.</p>`);
+        },
+      });
+    });
+
+    const loading = $("#uploadLoading");
+
+    function startLoading() {
+      loading.removeClass("hidden");
+    }
+    
+    function stopLoading() {
+      loading.addClass("hidden");
+    }
+
+    setInterval(()=>{
+      if (loading.text().length < 3) {
+        loading.text(loading.text()+".")
+      } else {
+        loading.text("")
+      }
+    }, 200)
+  </script>
+</body>
+</html>
