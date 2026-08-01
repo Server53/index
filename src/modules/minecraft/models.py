@@ -1,17 +1,7 @@
 from sqlalchemy import ForeignKey, String, Text
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-
-class Base(DeclarativeBase):
-    pass
-
-
-class Admin(Base):
-    __tablename__ = "admin"
-
-    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    name: Mapped[str] = mapped_column(String(128))
-    password: Mapped[str] = mapped_column(String(256))
+from src.db.base import Base
 
 
 class MinecraftServer(Base):

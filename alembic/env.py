@@ -18,7 +18,23 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from db.models import Base  # noqa
+
+def import_all_models():
+    import importlib, pathlib   # noqa
+
+    modules_dir = pathlib.Path(__file__).resolve().parent.parent / "src" / "modules"
+
+    for module_dir in modules_dir.iterdir():
+        if not module_dir.is_dir():
+            continue
+
+        models_file = module_dir / "models.py"
+        if models_file.exists():
+            importlib.import_module(f"src.modules.{module_dir.name}.models")
+
+import_all_models()
+
+from src.db.base import Base  # noqa
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,

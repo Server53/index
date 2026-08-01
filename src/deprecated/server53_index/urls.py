@@ -17,8 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from filestore.urls import urlpatterns as filestore_urls
-from minecraft.views import ModPacksListView, ServersListView
+from src.deprecated.filestore.urls import urlpatterns as filestore_urls
+from src.deprecated.minecraft.views import ModPacksListView, ServersListView
 
 urlpatterns = [
     path('servers/', ServersListView.as_view()),

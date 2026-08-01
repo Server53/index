@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
 
-DATABASE_URL = "sqlite://db.sqlite"
+DATABASE_URL = "sqlite:///db.sqlite"
 
 engine = create_engine(DATABASE_URL)
