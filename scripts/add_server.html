@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="button"></button> 
+</body>
+<script defer>
+async function onClick() {
+  response = await fetch("http://localhost:8080/minecraft/server", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          "name": "Test Server",
+          "description": "Just a server to test things out",
+          "client_json_file_id": "3",
+          "modded": true
+      })
+  })
+  console.log(response);
+}
+document.getElementById("button").addEventListener("click", onClick);
+</script>
+</html>
