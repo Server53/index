@@ -2,8 +2,7 @@ import io
 import pathlib
 from os import stat_result
 
-from filestore.id_generators.base import IdGenerator
-
+from ..id_generators.base import IdGenerator
 from .base import FileInfo, FileStore
 
 
@@ -37,6 +36,13 @@ class FileStoreFS(FileStore):
         if not file_path.is_file():
             raise FileNotFoundError(file_path)
         return file_path.open('rb')
+
+    def delete(self, file_id: str) -> bool:
+        file_path = self.FILES_PATH.joinpath(file_id)
+        if not file_path.is_file():
+            return False
+        file_path.unlink()
+        return True
 
     @staticmethod
     def __file_info_from_stat(stat: stat_result) -> FileInfo:

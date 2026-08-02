@@ -1,0 +1,1 @@
+CHUNK_SIZE_BYTES: int = 20*1024   # 2 KiB

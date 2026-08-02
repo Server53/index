@@ -20,3 +20,7 @@ class FileStore(ABC):
     @abstractmethod
     def download(self, file_id: str) -> io.BufferedIOBase:
         ...
+
+    @abstractmethod
+    def delete(self, file_id: str) -> bool:
+        ...
