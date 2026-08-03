@@ -16,7 +16,7 @@ class PostModPack(BaseModel):
     file_id: str
 
 
-class ModPackResponse(BaseModel):
+class ServerResponse(BaseModel):
     id: int
     name: str
     description: str
