@@ -1,16 +1,16 @@
 import logging
 import sys
-from pathlib import Path
 
 from src.config import EnvVarNotSet, prefixed_getenv_factory
 
-logger = logging.getLogger('files')
+logger = logging.getLogger('minecraft')
 
 _ = prefixed_getenv_factory(logger)
 
 try:
-    CHUNK_SIZE_BYTES = int(_('CHUNK_SIZE_BYTES', 20*1024))
-    FILESTORE_PATH = Path(_('FILESTORE_PATH')).absolute()
+    # Your environment variables here:
+    # VAR_NAME = str(_('VAR_NAME', default=''))
+    ...
 except EnvVarNotSet as e:
     logger.error(f"ERROR: required environment variable not set: {e}")
     sys.exit(1)

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from .cors import setup_cors
+from .logging_ import *
 
 app = FastAPI()
 

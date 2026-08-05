@@ -1,6 +1,9 @@
+import logging
 import pathlib
 
 from .base import IdGenerator
+
+logger = logging.getLogger('files')
 
 
 class IdGeneratorNumeric(IdGenerator):
@@ -18,7 +21,7 @@ class IdGeneratorNumeric(IdGenerator):
             last_id_str = last_id_path.read_text()
             last_id = int(last_id_str)
         except Exception as e:  # noqa
-            print(f"Error {e}")
+            logger.error(f'Error {e}')
             last_id = 0
         last_id_path.write_text(str(last_id))
         return last_id
