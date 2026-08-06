@@ -28,9 +28,9 @@ def import_all_models():
         if not module_dir.is_dir():
             continue
 
-        models_file = module_dir / "models.py"
+        models_file = module_dir / "db" / "models.py"
         if models_file.exists():
-            importlib.import_module(f"src.modules.{module_dir.name}.models")
+            importlib.import_module(f"src.modules.{module_dir.name}.db.models")
 
 import_all_models()
 

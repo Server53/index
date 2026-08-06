@@ -3,7 +3,7 @@ import runpy; runpy.run_module('fix_path')  # noqa READ INSIDE WHAT THIS IS FOR
 import sys
 
 from src.db.session import get_session
-from src.modules.auth.models import Admin
+from modules.auth.db.models import Admin
 
 
 class NotEnoughArguments(Exception): ...

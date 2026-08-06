@@ -6,8 +6,8 @@ from fastapi.responses import JSONResponse
 from src.db.session import get_session
 from src.modules.auth.dependencies import authorized_admin
 
-from .models import MinecraftModPack, MinecraftServer
-from .request_models import ModPackResponse, PostModPack, PostServer, ServerResponse
+from .db.models import MinecraftModPack, MinecraftServer
+from .models import ModPackResponse, PostModPack, PostServer, ServerResponse
 
 router = APIRouter()
 

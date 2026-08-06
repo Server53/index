@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Request
 
 from . import logic
-from .request_models import LoginModel
+from .models import LoginModel
 
 router = APIRouter()
 

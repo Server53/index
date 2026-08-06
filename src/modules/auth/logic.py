@@ -5,8 +5,8 @@ from fastapi.responses import JSONResponse
 from src.db.session import get_session
 
 from . import config
+from .db.models import Admin, RefreshToken
 from .hashing import hasher
-from .models import Admin, RefreshToken
 from .tokens import JWTPayload, TokenPair
 
 

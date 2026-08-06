@@ -4,7 +4,7 @@ import sys
 
 from src.db.session import get_session
 from src.modules.auth.hashing import hasher
-from src.modules.auth.models import Admin
+from modules.auth.db.models import Admin
 
 
 class NotEnoughArguments(Exception): ...
