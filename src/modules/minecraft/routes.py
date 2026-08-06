@@ -1,7 +1,10 @@
-from fastapi import APIRouter
+from typing import Annotated
+
+from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 
 from src.db.session import get_session
+from src.modules.auth.dependencies import authorized_admin
 
 from .models import MinecraftModPack, MinecraftServer
 from .request_models import ModPackResponse, PostModPack, PostServer, ServerResponse
@@ -18,7 +21,7 @@ def get_servers():
 
 
 @router.post("/server")
-def post_server(payload: PostServer):
+def post_server(payload: PostServer, username: Annotated[str, Depends(authorized_admin)]):
     with get_session() as session:
         new_server = MinecraftServer(**payload.model_dump())
         session.add(new_server)
@@ -29,7 +32,7 @@ def post_server(payload: PostServer):
 
 
 @router.delete("/server/{server_id}")
-def delete_server(server_id: int):
+def delete_server(server_id: int, username: Annotated[str, Depends(authorized_admin)]):
     with get_session() as session:
         deleted = session.query(MinecraftServer).filter_by(server_id=server_id).delete()
         session.commit()
@@ -45,7 +48,7 @@ def get_modpacks(server_id: int):
 
 
 @router.post("/modpack")
-def post_modpack(payload: PostModPack):
+def post_modpack(payload: PostModPack, username: Annotated[str, Depends(authorized_admin)]):
     with get_session() as session:
         new_modpack = MinecraftModPack(**payload.model_dump())
         session.add(new_modpack)

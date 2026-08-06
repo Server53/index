@@ -90,6 +90,13 @@ def decode_token(refresh_token: str) -> JWTPayload:
         raise InvalidToken
 
 
+def validate_access_token(access_token: str) -> JWTPayload:
+    payload = decode_token(access_token)
+    if payload.expired():
+        raise ExpiredToken
+    return payload
+
+
 def validate_refresh_token(refresh_token: str) -> JWTPayload:
     payload = decode_token(refresh_token)
     if payload.expired():

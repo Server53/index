@@ -20,7 +20,7 @@ class ServerResponse(BaseModel):
     id: int
     name: str
     description: str
-    client_json_file_id: int
+    client_json_file_id: str
     modded: bool
 
     class Config:
@@ -32,7 +32,7 @@ class ModPackResponse(BaseModel):
     server_id: int
     name: str
     description: str
-    file_id: int
+    file_id: str
     required: bool
 
     class Config:
