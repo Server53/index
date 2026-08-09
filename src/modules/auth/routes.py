@@ -1,13 +1,16 @@
-from fastapi import APIRouter, HTTPException, Request
+from typing import Annotated
+
+from fastapi import APIRouter, HTTPException, Request, Depends, Response
 
 from . import logic
 from .models import LoginModel
+from .dependencies import authorized_admin
 
 router = APIRouter()
 
 
 @router.post("/login")
-def admin_login(payload: LoginModel):
+def post_login(payload: LoginModel):
     try:
         logic.login(payload.name, payload.password)
         pair = logic.generate_tokens(payload.name)
@@ -20,7 +23,7 @@ def admin_login(payload: LoginModel):
 
 
 @router.post("/refresh")
-def admin_refresh(request: Request):
+def post_refresh(request: Request):
     try:
         refresh_token = logic.extract_refresh_token(request)
         payload = logic.validate_refresh_token(refresh_token)
@@ -36,3 +39,18 @@ def admin_refresh(request: Request):
         raise HTTPException(401, detail="Expired refresh_token")
     except logic.RevokedToken:
         raise HTTPException(401, detail="Revoked refresh_token")
+
+
+@router.get("/me")
+def get_me(username: Annotated[str, Depends(authorized_admin)]):
+    return { 'name': username }
+
+
+@router.post("/logout")
+def post_logout(request: Request):
+    try:
+        refresh_token = logic.extract_refresh_token(request)
+        logic.revoke_refresh_token(refresh_token)
+    except logic.TokenException:
+        pass
+    return Response(status_code=204)
